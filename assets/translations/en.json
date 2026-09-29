@@ -1,0 +1,24 @@
+{
+  "app_name": "EL-AMEED Travel",
+  "onboarding": {
+    "title_1": "Discover Egypt",
+    "desc_1": "Explore the best trips and packages curated for you.",
+    "title_2": "Book Easily",
+    "desc_2": "Pick your date and number of travelers, book in seconds.",
+    "title_3": "Travel with Confidence",
+    "desc_3": "Licensed guides, drivers, and support on every trip.",
+    "skip": "Skip",
+    "next": "Next",
+    "get_started": "Get Started"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "loading": "Loading...",
+    "no_internet": "No internet connection",
+    "something_went_wrong": "Something went wrong, please try again",
+    "connection_timeout": "Connection timed out",
+    "request_cancelled": "Request cancelled"
+  }
+}
