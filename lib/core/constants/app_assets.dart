@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 /// Image asset paths. Add a line here every time you drop a new image in
 /// assets/images — never write the string path directly in a widget.
 class AppImages {

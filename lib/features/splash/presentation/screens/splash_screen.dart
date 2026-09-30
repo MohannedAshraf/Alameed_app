@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/di/service_locator.dart';
-import '../../../login/presentation/screens/login_screen.dart';
+import '../../../auth/presentation/screens/login_screen.dart';
 import '../../../onboarding/presentation/screens/onboarding_screen.dart';
 import '../bloc/splash_bloc.dart';
 import '../bloc/splash_event.dart';

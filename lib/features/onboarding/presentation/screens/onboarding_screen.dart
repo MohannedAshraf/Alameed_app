@@ -8,7 +8,7 @@ import '../../../../core/constants/app_constants.dart';
 import '../../../../core/di/service_locator.dart';
 import '../../../../core/localization/locale_keys.g.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../login/presentation/screens/login_screen.dart';
+import '../../../auth/presentation/screens/login_screen.dart';
 import '../bloc/onboarding_bloc.dart';
 import '../bloc/onboarding_event.dart';
 import '../bloc/onboarding_state.dart';

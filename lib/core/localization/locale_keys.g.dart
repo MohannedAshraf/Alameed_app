@@ -1,13 +1,10 @@
 // This file mirrors assets/translations/en.json and ar.json.
 //
-// It is written by hand right now to match the two starter files above.
-// Once easy_localization is added to pubspec.yaml, you can regenerate it
-// automatically after adding new keys with:
-//
+// Regenerate anytime you add a key:
 //   flutter pub run easy_localization:generate -f keys \
 //     -S assets/translations -O lib/core/localization -o locale_keys.g.dart
 //
-// Usage in a widget: Text(LocaleKeys.onboardingSkip.tr())
+// Usage in a widget: Text(LocaleKeys.authLoginButton.tr())
 
 abstract class LocaleKeys {
   static const appName = 'app_name';
@@ -32,4 +29,41 @@ abstract class LocaleKeys {
   static const commonSomethingWentWrong = 'common.something_went_wrong';
   static const commonConnectionTimeout = 'common.connection_timeout';
   static const commonRequestCancelled = 'common.request_cancelled';
+  static const commonInvalidEmail = 'common.invalid_email';
+  static const commonInvalidPassword = 'common.invalid_password';
+  static const commonInvalidPhone = 'common.invalid_phone';
+  static const commonInvalidOtp = 'common.invalid_otp';
+  static const commonRequiredField = 'common.required_field';
+  static const commonPasswordMismatch = 'common.password_mismatch';
+
+  // auth.*
+  static const authWelcomeBack = 'auth.welcome_back';
+  static const authLoginSubtitle = 'auth.login_subtitle';
+  static const authEmailTab = 'auth.email_tab';
+  static const authPhoneTab = 'auth.phone_tab';
+  static const authEmailHint = 'auth.email_hint';
+  static const authPasswordHint = 'auth.password_hint';
+  static const authConfirmPasswordHint = 'auth.confirm_password_hint';
+  static const authNameHint = 'auth.name_hint';
+  static const authPhoneHint = 'auth.phone_hint';
+  static const authForgotPassword = 'auth.forgot_password';
+  static const authLoginButton = 'auth.login_button';
+  static const authSendCode = 'auth.send_code';
+  static const authOrContinueWith = 'auth.or_continue_with';
+  static const authContinueWithGoogle = 'auth.continue_with_google';
+  static const authContinueWithApple = 'auth.continue_with_apple';
+  static const authNoAccount = 'auth.no_account';
+  static const authCreateAccount = 'auth.create_account';
+  static const authRegisterTitle = 'auth.register_title';
+  static const authRegisterSubtitle = 'auth.register_subtitle';
+  static const authRegisterButton = 'auth.register_button';
+  static const authAlreadyHaveAccount = 'auth.already_have_account';
+  static const authLoginLink = 'auth.login_link';
+  static const authOtpTitle = 'auth.otp_title';
+  static const authOtpSubtitle = 'auth.otp_subtitle';
+  static const authOtpHint = 'auth.otp_hint';
+  static const authOtpResent = 'auth.otp_resent';
+  static const authVerifyButton = 'auth.verify_button';
+  static const authDidntReceiveCode = 'auth.didnt_receive_code';
+  static const authResendCode = 'auth.resend_code';
 }
