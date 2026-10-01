@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "85488542124",
+    "project_id": "el-ameed-travel",
+    "storage_bucket": "el-ameed-travel.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85488542124:android:55b9b28656990cff4c9a09",
+        "android_client_info": {
+          "package_name": "com.company.alameed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg7kyJ8DkjacdlA26dITz-ZgcRsCnRlao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
