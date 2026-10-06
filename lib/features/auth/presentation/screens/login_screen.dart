@@ -53,6 +53,9 @@ class _LoginViewState extends State<_LoginView>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    // IndexedStack مش متزامن تلقائي مع TabController زي TabBarView —
+    // لازم نسمعله يدوي ونعمل rebuild كل ما التبويب يتغيّر.
+    _tabController.addListener(() => setState(() {}));
   }
 
   @override
@@ -157,93 +160,95 @@ class _LoginViewState extends State<_LoginView>
                       ],
                     ),
                     SizedBox(height: AppSpacing.lg),
-                    SizedBox(
-                      height: 220.h,
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: [
-                          // ---- Email tab ----
-                          Column(
-                            children: [
-                              CustomTextField(
-                                controller: _emailController,
-                                hintText: LocaleKeys.authEmailHint.tr(),
-                                keyboardType: TextInputType.emailAddress,
-                                errorText: _emailError?.tr(),
-                                prefixIcon: Icons.email_outlined,
-                              ),
-                              SizedBox(height: AppSpacing.md),
-                              CustomTextField(
-                                controller: _passwordController,
-                                hintText: LocaleKeys.authPasswordHint.tr(),
-                                isPassword: true,
-                                errorText: _passwordError?.tr(),
-                                prefixIcon: Icons.lock_outline,
-                              ),
-                              SizedBox(height: AppSpacing.sm),
-                              Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: TextButton(
-                                  onPressed:
-                                      () {}, // TODO: forgot-password flow
-                                  child: Text(
-                                    LocaleKeys.authForgotPassword.tr(),
-                                    style: AppTextStyles.medium(
-                                      color: AppColors.primary,
-                                    ),
+
+                    // IndexedStack بيكبّر لحجم أطول تبويب تلقائي — مفيش
+                    // ارتفاع ثابت نحتاج نضبطه يدوي، فمفيش overflow.
+                    IndexedStack(
+                      index: _tabController.index,
+                      children: [
+                        // ---- Email tab ----
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomTextField(
+                              controller: _emailController,
+                              hintText: LocaleKeys.authEmailHint.tr(),
+                              keyboardType: TextInputType.emailAddress,
+                              errorText: _emailError?.tr(),
+                              prefixIcon: Icons.email_outlined,
+                            ),
+                            SizedBox(height: AppSpacing.md),
+                            CustomTextField(
+                              controller: _passwordController,
+                              hintText: LocaleKeys.authPasswordHint.tr(),
+                              isPassword: true,
+                              errorText: _passwordError?.tr(),
+                              prefixIcon: Icons.lock_outline,
+                            ),
+                            SizedBox(height: AppSpacing.sm),
+                            Align(
+                              alignment: AlignmentDirectional.centerEnd,
+                              child: TextButton(
+                                onPressed: () {}, // TODO: forgot-password flow
+                                child: Text(
+                                  LocaleKeys.authForgotPassword.tr(),
+                                  style: AppTextStyles.medium(
+                                    color: AppColors.primary,
                                   ),
                                 ),
                               ),
-                              const Spacer(),
-                              ElevatedButton(
-                                onPressed: isLoading
-                                    ? null
-                                    : () => _submitEmailLogin(context),
-                                child: isLoading
-                                    ? SizedBox(
-                                        height: 20.h,
-                                        width: 20.h,
-                                        child: const CircularProgressIndicator(
-                                          color: AppColors.white,
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : Text(LocaleKeys.authLoginButton.tr()),
-                              ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(height: AppSpacing.sm),
+                            ElevatedButton(
+                              onPressed: isLoading
+                                  ? null
+                                  : () => _submitEmailLogin(context),
+                              child: isLoading
+                                  ? SizedBox(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      child: const CircularProgressIndicator(
+                                        color: AppColors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Text(LocaleKeys.authLoginButton.tr()),
+                            ),
+                          ],
+                        ),
 
-                          // ---- Phone tab ----
-                          Column(
-                            children: [
-                              CustomTextField(
-                                controller: _phoneController,
-                                hintText: LocaleKeys.authPhoneHint.tr(),
-                                keyboardType: TextInputType.phone,
-                                errorText: _phoneError?.tr(),
-                                prefixIcon: Icons.phone_outlined,
-                              ),
-                              const Spacer(),
-                              ElevatedButton(
-                                onPressed: isLoading
-                                    ? null
-                                    : () => _submitPhoneLogin(context),
-                                child: isLoading
-                                    ? SizedBox(
-                                        height: 20.h,
-                                        width: 20.h,
-                                        child: const CircularProgressIndicator(
-                                          color: AppColors.white,
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : Text(LocaleKeys.authSendCode.tr()),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        // ---- Phone tab ----
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomTextField(
+                              controller: _phoneController,
+                              hintText: LocaleKeys.authPhoneHint.tr(),
+                              keyboardType: TextInputType.phone,
+                              errorText: _phoneError?.tr(),
+                              prefixIcon: Icons.phone_outlined,
+                            ),
+                            SizedBox(height: AppSpacing.lg),
+                            ElevatedButton(
+                              onPressed: isLoading
+                                  ? null
+                                  : () => _submitPhoneLogin(context),
+                              child: isLoading
+                                  ? SizedBox(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      child: const CircularProgressIndicator(
+                                        color: AppColors.white,
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Text(LocaleKeys.authSendCode.tr()),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
+
                     SizedBox(height: AppSpacing.lg),
                     Row(
                       children: [

@@ -1,8 +1,9 @@
-import 'package:alameed_app/features/splash/data/datasources/plash_local_data_source.dart';
+import 'package:alameed_app/core/services/firebase_auth_services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/local_storage_service.dart';
+import '../../features/splash/data/datasources/splash_local_data_source.dart';
 import '../../features/splash/data/repositories/splash_repository_impl.dart';
 import '../../features/splash/domain/repositories/splash_repository.dart';
 import '../../features/splash/domain/usecases/get_onboarding_seen_usecase.dart';
@@ -35,6 +36,7 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<LocalStorageService>(
     () => LocalStorageService(sl()),
   );
+  sl.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
 
   // ---- Splash feature ----
   sl.registerLazySingleton<SplashLocalDataSource>(
@@ -58,7 +60,9 @@ Future<void> setupServiceLocator() async {
   sl.registerFactory<OnboardingBloc>(() => OnboardingBloc(sl()));
 
   // ---- Auth feature (login / register / otp) ----
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSource());
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSource(sl()),
+  );
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(sl(), sl()),
   );

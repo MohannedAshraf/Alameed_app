@@ -1,4 +1,4 @@
-import 'package:alameed_app/features/splash/data/datasources/plash_local_data_source.dart';
+import 'package:alameed_app/features/splash/data/datasources/splash_local_data_source.dart';
 
 import '../../domain/repositories/splash_repository.dart';
 
