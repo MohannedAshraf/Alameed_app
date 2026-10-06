@@ -71,4 +71,11 @@ abstract class LocaleKeys {
   static const commonUserNotFound = 'common.user_not_found';
   static const commonWrongPassword = 'common.wrong_password';
   static const commonTooManyRequests = 'common.too_many_requests';
+    static const authForgotPasswordSubtitle = 'auth.forgot_password_subtitle';
+  static const authResetOtpSubtitle = 'auth.reset_otp_subtitle';
+  static const authNewPasswordTitle = 'auth.new_password_title';
+  static const authNewPasswordSubtitle = 'auth.new_password_subtitle';
+  static const authNewPasswordHint = 'auth.new_password_hint';
+  static const authSavePasswordButton = 'auth.save_password_button';
+  static const authPasswordChangedSuccess = 'auth.password_changed_success';
 }

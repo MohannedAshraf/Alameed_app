@@ -61,7 +61,13 @@
     "weak_password": "Password is too weak",
     "user_not_found": "No account found with this email",
     "wrong_password": "Incorrect password",
-    "too_many_requests": "Too many attempts, try again later"
-
+    "too_many_requests": "Too many attempts, try again later",
+        "forgot_password_subtitle": "Enter your email and we'll send you a code to reset your password",
+    "reset_otp_subtitle": "Enter the code sent to {email}",
+    "new_password_title": "Create New Password",
+    "new_password_subtitle": "Your new password must be different from your previous one",
+    "new_password_hint": "New password",
+    "save_password_button": "Save Password",
+    "password_changed_success": "Password changed successfully"
   }
 }

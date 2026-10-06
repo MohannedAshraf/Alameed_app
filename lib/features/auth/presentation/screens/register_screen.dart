@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/di/service_locator.dart';
@@ -115,35 +116,49 @@ class _RegisterViewState extends State<_RegisterView> {
           ).showSnackBar(SnackBar(content: Text(state.messageKey.tr())));
         }
       },
+      // مفيش AppBar خالص دلوقتي — يعني مفيش زرار back تلقائي برضو.
       child: Scaffold(
         backgroundColor: AppColors.white,
-        appBar: AppBar(
-          backgroundColor: AppColors.white,
-          foregroundColor: AppColors.textPrimary,
-          elevation: 0,
-        ),
         body: SafeArea(
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, state) {
               final isLoading = state is RegisterLoading;
 
               return SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.lg,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    SizedBox(height: AppSpacing.md),
+
+                    // ---- اللوجو + العنوان، في النص ----
+                    Center(
+                      child: Image.asset(
+                        AppImages.logo,
+                        height: 90.h,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    SizedBox(height: AppSpacing.lg),
                     Text(
                       LocaleKeys.authRegisterTitle.tr(),
+                      textAlign: TextAlign.center,
                       style: AppTextStyles.heading2,
                     ),
                     SizedBox(height: AppSpacing.xs),
                     Text(
                       LocaleKeys.authRegisterSubtitle.tr(),
+                      textAlign: TextAlign.center,
                       style: AppTextStyles.regular(
                         color: AppColors.textSecondary,
                       ),
                     ),
                     SizedBox(height: AppSpacing.lg),
+
+                    // ---- باقي الحقول زي ما هي ----
                     CustomTextField(
                       controller: _nameController,
                       hintText: LocaleKeys.authNameHint.tr(),

@@ -61,6 +61,13 @@
     "weak_password": "كلمة السر ضعيفة جداً",
     "user_not_found": "مفيش حساب بالإيميل ده",
     "wrong_password": "كلمة السر غلط",
-    "too_many_requests": "محاولات كتير، جرب تاني بعد شوية"
+    "too_many_requests": "محاولات كتير، جرب تاني بعد شوية",
+        "forgot_password_subtitle": "اكتب إيميلك وهنبعتلك كود لإعادة تعيين كلمة السر",
+    "reset_otp_subtitle": "ادخل الكود اللي اتبعت على {email}",
+    "new_password_title": "إنشاء كلمة سر جديدة",
+    "new_password_subtitle": "كلمة السر الجديدة لازم تكون مختلفة عن القديمة",
+    "new_password_hint": "كلمة السر الجديدة",
+    "save_password_button": "حفظ كلمة السر",
+    "password_changed_success": "تم تغيير كلمة السر بنجاح"
   }
 }
