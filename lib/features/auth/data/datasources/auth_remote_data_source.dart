@@ -1,4 +1,3 @@
-
 import 'package:alameed_app/core/services/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 
@@ -10,17 +9,49 @@ class AuthRemoteDataSource {
 
   final FirebaseAuthService _firebaseAuthService;
 
-  // ---------------------------------------------------------------------
-  // Email / Phone+OTP — لسه MOCKED لحد ما الباك اند بتاعنا يجهز.
+  // ------------------S---------------------------------------------------
+  // Email/Password — حقيقي دلوقتي عن طريق Firebase.
   // ---------------------------------------------------------------------
   Future<AuthResponseModel> loginWithEmail({
     required String email,
     required String password,
   }) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return _fakeResponse(name: email.split('@').first, email: email);
+    try {
+      final user = await _firebaseAuthService.signInWithEmail(
+        email: email,
+        password: password,
+      );
+      return _responseFromFirebaseUser(user);
+    } on fb.FirebaseAuthException catch (e) {
+      throw _mapFirebaseError(e);
+    }
   }
 
+  Future<AuthResponseModel> registerWithEmail({
+    required String name,
+    required String email,
+    required String phone,
+    required String password,
+  }) async {
+    try {
+      final user = await _firebaseAuthService.signUpWithEmail(
+        name: name,
+        email: email,
+        password: password,
+      );
+      // Firebase لحساب الإيميل/الباسورد مش بيخزن رقم الموبايل (ده محتاج
+      // flow تحقق منفصل بالـ OTP)، فبنسيب رقم الموبايل اللي المستخدم
+      // كتبه هنا بدل ما ناخده من user.phoneNumber (هيبقى فاضي). لما
+      // الباك اند الحقيقي يجهز، هو اللي هيخزنه كـ profile field.
+      return _responseFromFirebaseUser(user, phoneOverride: phone);
+    } on fb.FirebaseAuthException catch (e) {
+      throw _mapFirebaseError(e);
+    }
+  }
+
+  // ---------------------------------------------------------------------
+  // Phone + OTP — لسه MOCKED (محتاج باك اند حقيقي لإرسال الـ SMS).
+  // ---------------------------------------------------------------------
   Future<void> sendOtp({required String phone}) async {
     await Future.delayed(const Duration(seconds: 1));
   }
@@ -33,32 +64,19 @@ class AuthRemoteDataSource {
     if (otp != '1234') {
       throw ApiException('common.invalid_otp');
     }
-    return _fakeResponse(name: 'Test User', phone: phone);
-  }
-
-  Future<AuthResponseModel> registerWithEmail({
-    required String name,
-    required String email,
-    required String phone,
-    required String password,
-  }) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return _fakeResponse(name: name, email: email, phone: phone);
-  }
-
-  AuthResponseModel _fakeResponse({
-    String name = 'Test User',
-    String email = 'test@example.com',
-    String phone = '01000000000',
-  }) {
     return AuthResponseModel(
-      user: UserModel(id: '1', name: name, email: email, phone: phone),
+      user: UserModel(
+        id: '1',
+        name: 'Test User',
+        email: 'test@example.com',
+        phone: phone,
+      ),
       token: 'fake-token-for-ui-testing',
     );
   }
 
   // ---------------------------------------------------------------------
-  // Google / Apple — حقيقيين دلوقتي عن طريق Firebase.
+  // Google / Apple — حقيقيين عن طريق Firebase.
   // ---------------------------------------------------------------------
   Future<AuthResponseModel> loginWithGoogle() async {
     final firebaseUser = await _firebaseAuthService.signInWithGoogle();
@@ -70,17 +88,45 @@ class AuthRemoteDataSource {
     return _responseFromFirebaseUser(firebaseUser);
   }
 
-  Future<AuthResponseModel> _responseFromFirebaseUser(fb.User user) async {
+  // ---------------------------------------------------------------------
+  // Helpers
+  // ---------------------------------------------------------------------
+  Future<AuthResponseModel> _responseFromFirebaseUser(
+    fb.User user, {
+    String? phoneOverride,
+  }) async {
     final idToken = await user.getIdToken();
     return AuthResponseModel(
       user: UserModel(
         id: user.uid,
         name: user.displayName ?? '',
         email: user.email ?? '',
-        phone: user.phoneNumber ?? '',
+        phone: phoneOverride ?? user.phoneNumber ?? '',
         avatarUrl: user.photoURL,
       ),
       token: idToken ?? '',
     );
+  }
+
+  ApiException _mapFirebaseError(fb.FirebaseAuthException e) {
+    switch (e.code) {
+      case 'email-already-in-use':
+        return ApiException('common.email_already_in_use');
+      case 'weak-password':
+        return ApiException('common.weak_password');
+      case 'invalid-email':
+        return ApiException('common.invalid_email');
+      case 'user-not-found':
+        return ApiException('common.user_not_found');
+      case 'wrong-password':
+      case 'invalid-credential':
+        return ApiException('common.wrong_password');
+      case 'too-many-requests':
+        return ApiException('common.too_many_requests');
+      case 'network-request-failed':
+        return ApiException('common.no_internet');
+      default:
+        return ApiException('common.something_went_wrong');
+    }
   }
 }

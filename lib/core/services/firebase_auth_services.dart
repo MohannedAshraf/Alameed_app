@@ -29,6 +29,31 @@ class FirebaseAuthService {
     final userCredential = await _firebaseAuth.signInWithCredential(credential);
     return userCredential.user!;
   }
+    Future<fb.User> signUpWithEmail({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    final user = userCredential.user!;
+    await user.updateDisplayName(name);
+    await user.reload();
+    return _firebaseAuth.currentUser!;
+  }
+
+  Future<fb.User> signInWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return userCredential.user!;
+  }
 
   Future<fb.User> signInWithApple() async {
     final rawNonce = _generateNonce();

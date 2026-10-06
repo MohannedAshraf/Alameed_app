@@ -66,4 +66,9 @@ abstract class LocaleKeys {
   static const authVerifyButton = 'auth.verify_button';
   static const authDidntReceiveCode = 'auth.didnt_receive_code';
   static const authResendCode = 'auth.resend_code';
+    static const commonEmailAlreadyInUse = 'common.email_already_in_use';
+  static const commonWeakPassword = 'common.weak_password';
+  static const commonUserNotFound = 'common.user_not_found';
+  static const commonWrongPassword = 'common.wrong_password';
+  static const commonTooManyRequests = 'common.too_many_requests';
 }
