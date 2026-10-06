@@ -138,8 +138,8 @@ class _RegisterViewState extends State<_RegisterView> {
                     Center(
                       child: Image.asset(
                         AppImages.logo,
-                        height: 90.h,
-                        fit: BoxFit.contain,
+                        height: 120.h,
+                        fit: BoxFit.fill,
                       ),
                     ),
                     SizedBox(height: AppSpacing.lg),
