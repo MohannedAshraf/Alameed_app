@@ -35,6 +35,11 @@ abstract class LocaleKeys {
   static const commonInvalidOtp = 'common.invalid_otp';
   static const commonRequiredField = 'common.required_field';
   static const commonPasswordMismatch = 'common.password_mismatch';
+  static const commonEmailAlreadyInUse = 'common.email_already_in_use';
+  static const commonWeakPassword = 'common.weak_password';
+  static const commonUserNotFound = 'common.user_not_found';
+  static const commonWrongPassword = 'common.wrong_password';
+  static const commonTooManyRequests = 'common.too_many_requests';
 
   // auth.*
   static const authWelcomeBack = 'auth.welcome_back';
@@ -66,16 +71,25 @@ abstract class LocaleKeys {
   static const authVerifyButton = 'auth.verify_button';
   static const authDidntReceiveCode = 'auth.didnt_receive_code';
   static const authResendCode = 'auth.resend_code';
-    static const commonEmailAlreadyInUse = 'common.email_already_in_use';
-  static const commonWeakPassword = 'common.weak_password';
-  static const commonUserNotFound = 'common.user_not_found';
-  static const commonWrongPassword = 'common.wrong_password';
-  static const commonTooManyRequests = 'common.too_many_requests';
-    static const authForgotPasswordSubtitle = 'auth.forgot_password_subtitle';
+  static const authForgotPasswordSubtitle = 'auth.forgot_password_subtitle';
   static const authResetOtpSubtitle = 'auth.reset_otp_subtitle';
   static const authNewPasswordTitle = 'auth.new_password_title';
   static const authNewPasswordSubtitle = 'auth.new_password_subtitle';
   static const authNewPasswordHint = 'auth.new_password_hint';
   static const authSavePasswordButton = 'auth.save_password_button';
   static const authPasswordChangedSuccess = 'auth.password_changed_success';
+
+  // nav.*
+  static const navHome = 'nav.home';
+  static const navTrips = 'nav.trips';
+  static const navMyTrips = 'nav.my_trips';
+  static const navProfile = 'nav.profile';
+
+  // home.*
+  static const homeSearchHint = 'home.search_hint';
+  static const homeFeaturedTrips = 'home.featured_trips';
+  static const homeMenu = 'home.menu';
+  static const homeSettings = 'home.settings';
+  static const homeLogout = 'home.logout';
+  static const homeComingSoon = 'home.coming_soon';
 }

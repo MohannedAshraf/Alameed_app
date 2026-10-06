@@ -25,7 +25,12 @@
     "invalid_phone": "Enter a valid phone number",
     "invalid_otp": "Invalid verification code",
     "required_field": "This field is required",
-    "password_mismatch": "Passwords do not match"
+    "password_mismatch": "Passwords do not match",
+    "email_already_in_use": "This email is already registered",
+    "weak_password": "Password is too weak",
+    "user_not_found": "No account found with this email",
+    "wrong_password": "Incorrect password",
+    "too_many_requests": "Too many attempts, try again later"
   },
   "auth": {
     "welcome_back": "Welcome Back",
@@ -57,17 +62,26 @@
     "verify_button": "Verify",
     "didnt_receive_code": "Didn't receive the code?",
     "resend_code": "Resend",
-        "email_already_in_use": "This email is already registered",
-    "weak_password": "Password is too weak",
-    "user_not_found": "No account found with this email",
-    "wrong_password": "Incorrect password",
-    "too_many_requests": "Too many attempts, try again later",
-        "forgot_password_subtitle": "Enter your email and we'll send you a code to reset your password",
+    "forgot_password_subtitle": "Enter your email and we'll send you a code to reset your password",
     "reset_otp_subtitle": "Enter the code sent to {email}",
     "new_password_title": "Create New Password",
     "new_password_subtitle": "Your new password must be different from your previous one",
     "new_password_hint": "New password",
     "save_password_button": "Save Password",
     "password_changed_success": "Password changed successfully"
+  },
+  "nav": {
+    "home": "Home",
+    "trips": "Trips",
+    "my_trips": "My Trips",
+    "profile": "Profile"
+  },
+  "home": {
+    "search_hint": "Search for a trip...",
+    "featured_trips": "Featured Trips",
+    "menu": "Menu",
+    "settings": "Settings",
+    "logout": "Logout",
+    "coming_soon": "Coming soon"
   }
 }

@@ -25,7 +25,12 @@
     "invalid_phone": "رقم الموبايل غير صحيح",
     "invalid_otp": "كود التحقق غير صحيح",
     "required_field": "الحقل ده مطلوب",
-    "password_mismatch": "كلمتا السر مش متطابقتين"
+    "password_mismatch": "كلمتا السر مش متطابقتين",
+    "email_already_in_use": "البريد الإلكتروني ده مسجل بالفعل",
+    "weak_password": "كلمة السر ضعيفة جداً",
+    "user_not_found": "مفيش حساب بالإيميل ده",
+    "wrong_password": "كلمة السر غلط",
+    "too_many_requests": "محاولات كتير، جرب تاني بعد شوية"
   },
   "auth": {
     "welcome_back": "أهلاً بيك تاني",
@@ -57,17 +62,26 @@
     "verify_button": "تأكيد",
     "didnt_receive_code": "مفيش رسالة وصلتك؟",
     "resend_code": "إعادة الإرسال",
-        "email_already_in_use": "البريد الإلكتروني ده مسجل بالفعل",
-    "weak_password": "كلمة السر ضعيفة جداً",
-    "user_not_found": "مفيش حساب بالإيميل ده",
-    "wrong_password": "كلمة السر غلط",
-    "too_many_requests": "محاولات كتير، جرب تاني بعد شوية",
-        "forgot_password_subtitle": "اكتب إيميلك وهنبعتلك كود لإعادة تعيين كلمة السر",
+    "forgot_password_subtitle": "اكتب إيميلك وهنبعتلك كود لإعادة تعيين كلمة السر",
     "reset_otp_subtitle": "ادخل الكود اللي اتبعت على {email}",
     "new_password_title": "إنشاء كلمة سر جديدة",
     "new_password_subtitle": "كلمة السر الجديدة لازم تكون مختلفة عن القديمة",
     "new_password_hint": "كلمة السر الجديدة",
     "save_password_button": "حفظ كلمة السر",
     "password_changed_success": "تم تغيير كلمة السر بنجاح"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "trips": "الرحلات",
+    "my_trips": "رحلاتي",
+    "profile": "الملف الشخصي"
+  },
+  "home": {
+    "search_hint": "ابحث عن رحلة...",
+    "featured_trips": "أبرز الرحلات",
+    "menu": "القائمة",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "coming_soon": "قريباً"
   }
 }

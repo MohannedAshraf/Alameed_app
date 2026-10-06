@@ -1,3 +1,4 @@
+import 'package:alameed_app/features/main/presentation/screens/main_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,6 @@ import '../../../../core/di/service_locator.dart';
 import '../../../../core/localization/locale_keys.g.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/validators.dart';
-import '../../../home/presentation/screens/home_screen.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
@@ -78,7 +78,7 @@ class _LoginViewState extends State<_LoginView> {
       listener: (context, state) {
         if (state is LoginSuccess) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const HomeScreen()),
+            MaterialPageRoute(builder: (_) => const  MainScreen()),
             (route) => false,
           );
         } else if (state is LoginFailure) {
