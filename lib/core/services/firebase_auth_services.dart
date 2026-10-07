@@ -12,6 +12,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 class FirebaseAuthService {
   final _firebaseAuth = fb.FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
+  fb.User? get currentUser => _firebaseAuth.currentUser;
 
   Future<fb.User> signInWithGoogle() async {
     final googleUser = await _googleSignIn.signIn();

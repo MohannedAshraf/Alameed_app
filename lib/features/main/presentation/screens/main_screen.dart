@@ -54,7 +54,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      endDrawer: const AppDrawer(),
+      endDrawer: AppDrawer(
+        onNavigateToTab: (index) => setState(() => _currentIndex = index),
+      ),
       body: IndexedStack(index: _currentIndex, children: _tabs),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

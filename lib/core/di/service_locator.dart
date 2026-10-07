@@ -24,6 +24,9 @@ import '../../features/auth/domain/usecases/verify_otp_usecase.dart';
 import '../../features/auth/presentation/bloc/login_bloc.dart';
 import '../../features/auth/presentation/bloc/otp_bloc.dart';
 import '../../features/auth/presentation/bloc/register_bloc.dart';
+import '../../features/trips/data/datasources/trips_mock_data_source.dart';
+import '../../features/trips/data/repositories/trips_repository_impl.dart';
+import '../../features/trips/domain/repositories/trips_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -83,4 +86,8 @@ Future<void> setupServiceLocator() async {
   sl.registerFactory<LoginBloc>(() => LoginBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory<RegisterBloc>(() => RegisterBloc(sl()));
   sl.registerFactory<OtpBloc>(() => OtpBloc(sl(), sl()));
+
+  // ---- Trips feature (mocked for now, shared across Home/Trips/Favourites/MyTrips) ----
+  sl.registerLazySingleton<TripsMockDataSource>(() => TripsMockDataSource());
+  sl.registerLazySingleton<TripsRepository>(() => TripsRepositoryImpl(sl()));
 }

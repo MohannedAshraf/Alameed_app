@@ -82,6 +82,18 @@
     "menu": "Menu",
     "settings": "Settings",
     "logout": "Logout",
-    "coming_soon": "Coming soon"
+    "coming_soon": "Coming soon",
+        "favourites": "Favourites",
+    "about_us": "About Us",
+    "help": "Help",
+        "no_favourites": "You haven't added any favourites yet",
+    "no_booked_trips": "You haven't booked any trips yet",
+    "trip_description": "Description",
+    "trip_included": "Included",
+    "trip_not_included": "Not Included",
+    "trip_booked": "Trip added to My Trips",
+    "already_booked": "Already Booked",
+    "book_now": "Book Now"
   }
+  
 }

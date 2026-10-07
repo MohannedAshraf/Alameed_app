@@ -92,4 +92,15 @@ abstract class LocaleKeys {
   static const homeSettings = 'home.settings';
   static const homeLogout = 'home.logout';
   static const homeComingSoon = 'home.coming_soon';
+  static const homeFavourites = 'home.favourites';
+  static const homeAboutUs = 'home.about_us';
+  static const homeHelp = 'home.help';
+    static const homeNoFavourites = 'home.no_favourites';
+  static const homeNoBookedTrips = 'home.no_booked_trips';
+  static const homeTripDescription = 'home.trip_description';
+  static const homeTripIncluded = 'home.trip_included';
+  static const homeTripNotIncluded = 'home.trip_not_included';
+  static const homeTripBooked = 'home.trip_booked';
+  static const homeAlreadyBooked = 'home.already_booked';
+  static const homeBookNow = 'home.book_now';
 }

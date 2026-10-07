@@ -82,6 +82,17 @@
     "menu": "القائمة",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
-    "coming_soon": "قريباً"
+    "coming_soon": "قريباً",
+        "favourites": "المفضلة",
+    "about_us": "من نحن",
+    "help": "المساعدة",
+        "no_favourites": "لسه مضفتش أي رحلة للمفضلة",
+    "no_booked_trips": "لسه محجزتش أي رحلة",
+    "trip_description": "وصف الرحلة",
+    "trip_included": "متضمن",
+    "trip_not_included": "غير متضمن",
+    "trip_booked": "تمت إضافة الرحلة لرحلاتي",
+    "already_booked": "تم الحجز بالفعل",
+    "book_now": "احجز الآن"
   }
 }
