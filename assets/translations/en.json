@@ -94,6 +94,12 @@
     "trip_booked": "Trip added to My Trips",
     "already_booked": "Already Booked",
     "book_now": "Book Now"
+  },
+  "profile": {
+    "edit_profile": "Edit Profile",
+    "save": "Save Changes",
+    "updated": "Profile updated successfully",
+    "phone_not_saved": "This number isn't saved to your account yet — syncing with the backend is coming later"
   }
   
 }

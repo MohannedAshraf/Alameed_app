@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 
-/// Shared text field for every auth screen. Handles its own
+/// Shared text field for every auth/profile screen. Handles its own
 /// password-visibility toggle so screens don't repeat that logic.
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -15,6 +15,7 @@ class CustomTextField extends StatefulWidget {
     this.isPassword = false,
     this.errorText,
     this.prefixIcon,
+    this.enabled = true,
   });
 
   final TextEditingController controller;
@@ -23,6 +24,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final String? errorText;
   final IconData? prefixIcon;
+  final bool enabled;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -37,6 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword && _obscure,
+      enabled: widget.enabled,
       style: AppTextStyles.body,
       decoration: InputDecoration(
         hintText: widget.hintText,

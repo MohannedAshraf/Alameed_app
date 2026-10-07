@@ -103,4 +103,9 @@ abstract class LocaleKeys {
   static const homeTripBooked = 'home.trip_booked';
   static const homeAlreadyBooked = 'home.already_booked';
   static const homeBookNow = 'home.book_now';
+    // profile.*
+  static const profileEditProfile = 'profile.edit_profile';
+  static const profileSave = 'profile.save';
+  static const profileUpdated = 'profile.updated';
+  static const profilePhoneNotSaved = 'profile.phone_not_saved';
 }

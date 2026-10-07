@@ -1,5 +1,4 @@
 import 'package:alameed_app/core/services/firebase_auth_services.dart';
-import 'package:alameed_app/features/profile/presentation/screens/profile_tab.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,10 +38,12 @@ class AppDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
+                      // بروفايل = تاب رقم 3 في الـ Bottom Nav، مش صفحة
+                      // منفصلة. لازم نقفل الـ Drawer الأول زي باقي البنود.
+                      customBorder: const CircleBorder(),
                       onTap: () {
-                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => const ProfileTab()),
-                        );
+                        Navigator.of(context).pop();
+                        onNavigateToTab(3);
                       },
                       child: CircleAvatar(
                         radius: 36.r,
@@ -60,14 +61,20 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppSpacing.sm),
-                    Text(
-                      (user?.displayName?.isNotEmpty ?? false)
-                          ? user!.displayName!
-                          : (user?.email ?? ''),
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.semiBold(
-                        fontSize: 15,
-                        color: AppColors.white,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        onNavigateToTab(3);
+                      },
+                      child: Text(
+                        (user?.displayName?.isNotEmpty ?? false)
+                            ? user!.displayName!
+                            : (user?.email ?? ''),
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.semiBold(
+                          fontSize: 15,
+                          color: AppColors.white,
+                        ),
                       ),
                     ),
                   ],
@@ -179,8 +186,6 @@ class _DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SizedBox بعرض كامل عشان الـ InkWell ياخد عرض الدرج كله، مش بس
-    // مساحة الأيقونة والنص، مع إن المحتوى نفسه لسه في النص.
     return SizedBox(
       width: double.infinity,
       child: InkWell(
