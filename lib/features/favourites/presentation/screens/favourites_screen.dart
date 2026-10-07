@@ -9,19 +9,12 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../trips/domain/repositories/trips_repository.dart';
 import '../../../trips/presentation/widgets/trip_list_tile.dart';
 
-class FavouritesScreen extends StatefulWidget {
+class FavouritesScreen extends StatelessWidget {
   const FavouritesScreen({super.key});
 
   @override
-  State<FavouritesScreen> createState() => _FavouritesScreenState();
-}
-
-class _FavouritesScreenState extends State<FavouritesScreen> {
-  final _repository = sl<TripsRepository>();
-
-  @override
   Widget build(BuildContext context) {
-    final trips = _repository.getFavouriteTrips();
+    final repository = sl<TripsRepository>();
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -31,8 +24,13 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
         elevation: 0,
         title: Text(LocaleKeys.homeFavourites.tr()),
       ),
-      body: trips.isEmpty
-          ? Center(
+      body: ListenableBuilder(
+        listenable: repository,
+        builder: (context, _) {
+          final trips = repository.getFavouriteTrips();
+
+          if (trips.isEmpty) {
+            return Center(
               child: Padding(
                 padding: EdgeInsets.all(AppSpacing.lg),
                 child: Text(
@@ -41,23 +39,26 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   style: AppTextStyles.body,
                 ),
               ),
-            )
-          : ListView.builder(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSpacing.lg,
-                vertical: AppSpacing.md,
-              ),
-              itemCount: trips.length,
-              itemBuilder: (context, index) {
-                final trip = trips[index];
-                return TripListTile(
-                  trip: trip,
-                  isFavourite: true,
-                  onFavouriteToggle: () =>
-                      setState(() => _repository.toggleFavourite(trip.id)),
-                );
-              },
+            );
+          }
+
+          return ListView.builder(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.lg,
+              vertical: AppSpacing.md,
             ),
+            itemCount: trips.length,
+            itemBuilder: (context, index) {
+              final trip = trips[index];
+              return TripListTile(
+                trip: trip,
+                isFavourite: true,
+                onFavouriteToggle: () => repository.toggleFavourite(trip.id),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

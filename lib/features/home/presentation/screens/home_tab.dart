@@ -15,56 +15,62 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final repository = sl<TripsRepository>();
-    final trips = repository.getAllTrips();
-    final featuredTrips = trips.take(4).toList();
-    final carouselImages = trips.take(3).map((t) => t.imagePath).toList();
 
-    return SingleChildScrollView(
-      padding: EdgeInsets.only(bottom: AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: AppSpacing.md),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: TextField(
-              readOnly: true, // TODO: فعّلها لما تتبنى صفحة البحث
-              onTap: () {},
-              decoration: InputDecoration(
-                hintText: LocaleKeys.homeSearchHint.tr(),
-                prefixIcon: const Icon(Icons.search),
+    return ListenableBuilder(
+      listenable: repository,
+      builder: (context, _) {
+        final trips = repository.getAllTrips();
+        final featuredTrips = trips.take(4).toList();
+        final carouselImages = trips.take(3).map((t) => t.imagePath).toList();
+
+        return SingleChildScrollView(
+          padding: EdgeInsets.only(bottom: AppSpacing.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: AppSpacing.md),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                child: TextField(
+                  readOnly: true,
+                  onTap: () {},
+                  decoration: InputDecoration(
+                    hintText: LocaleKeys.homeSearchHint.tr(),
+                    prefixIcon: const Icon(Icons.search),
+                  ),
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: AppSpacing.lg),
-          TripCarousel(imagePaths: carouselImages),
-          SizedBox(height: AppSpacing.lg),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: Text(
-              LocaleKeys.homeFeaturedTrips.tr(),
-              style: AppTextStyles.title,
-            ),
-          ),
-          SizedBox(height: AppSpacing.sm),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-            child: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: featuredTrips.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: AppSpacing.sm,
-                crossAxisSpacing: AppSpacing.sm,
-                childAspectRatio: 0.72,
+              SizedBox(height: AppSpacing.lg),
+              TripCarousel(imagePaths: carouselImages),
+              SizedBox(height: AppSpacing.lg),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                child: Text(
+                  LocaleKeys.homeFeaturedTrips.tr(),
+                  style: AppTextStyles.title,
+                ),
               ),
-              itemBuilder: (context, index) =>
-                  TripCard(trip: featuredTrips[index]),
-            ),
+              SizedBox(height: AppSpacing.sm),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: featuredTrips.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: AppSpacing.sm,
+                    crossAxisSpacing: AppSpacing.sm,
+                    childAspectRatio: 0.72,
+                  ),
+                  itemBuilder: (context, index) =>
+                      TripCard(trip: featuredTrips[index]),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -2,11 +2,7 @@ import '../../domain/entities/trip_entity.dart';
 import '../../domain/repositories/trips_repository.dart';
 import '../datasources/trips_mock_data_source.dart';
 
-/// بيحتفظ بحالة المفضلة والحجز في الذاكرة طول مدة تشغيل التطبيق (مسجل
-/// كـ singleton في service_locator، فكل الشاشات بتقرا وتكتب على نفس
-/// الحالة). مش بيتحفظ بعد إغلاق التطبيق لسه — هنربطه بتخزين محلي أو
-/// باك اند حقيقي بعدين.
-class TripsRepositoryImpl implements TripsRepository {
+class TripsRepositoryImpl extends TripsRepository {
   TripsRepositoryImpl(this._dataSource);
 
   final TripsMockDataSource _dataSource;
@@ -46,10 +42,12 @@ class TripsRepositoryImpl implements TripsRepository {
     } else {
       _favouriteIds.add(tripId);
     }
+    notifyListeners();
   }
 
   @override
   void bookTrip(String tripId) {
     _bookedIds.add(tripId);
+    notifyListeners();
   }
 }

@@ -8,46 +8,45 @@ import '../../../../core/theme/app_text_styles.dart';
 import '../../../trips/domain/repositories/trips_repository.dart';
 import '../../../trips/presentation/widgets/trip_list_tile.dart';
 
-class MyTripsTab extends StatefulWidget {
+class MyTripsTab extends StatelessWidget {
   const MyTripsTab({super.key});
 
   @override
-  State<MyTripsTab> createState() => _MyTripsTabState();
-}
-
-class _MyTripsTabState extends State<MyTripsTab> {
-  final _repository = sl<TripsRepository>();
-
-  @override
   Widget build(BuildContext context) {
-    final trips = _repository.getMyTrips();
+    final repository = sl<TripsRepository>();
 
-    if (trips.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: EdgeInsets.all(AppSpacing.lg),
-          child: Text(
-            LocaleKeys.homeNoBookedTrips.tr(),
-            textAlign: TextAlign.center,
-            style: AppTextStyles.body,
+    return ListenableBuilder(
+      listenable: repository,
+      builder: (context, _) {
+        final trips = repository.getMyTrips();
+
+        if (trips.isEmpty) {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.all(AppSpacing.lg),
+              child: Text(
+                LocaleKeys.homeNoBookedTrips.tr(),
+                textAlign: TextAlign.center,
+                style: AppTextStyles.body,
+              ),
+            ),
+          );
+        }
+
+        return ListView.builder(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
           ),
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.md,
-      ),
-      itemCount: trips.length,
-      itemBuilder: (context, index) {
-        final trip = trips[index];
-        return TripListTile(
-          trip: trip,
-          isFavourite: _repository.isFavourite(trip.id),
-          onFavouriteToggle: () =>
-              setState(() => _repository.toggleFavourite(trip.id)),
+          itemCount: trips.length,
+          itemBuilder: (context, index) {
+            final trip = trips[index];
+            return TripListTile(
+              trip: trip,
+              isFavourite: repository.isFavourite(trip.id),
+              onFavouriteToggle: () => repository.toggleFavourite(trip.id),
+            );
+          },
         );
       },
     );

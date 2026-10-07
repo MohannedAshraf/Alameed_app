@@ -24,6 +24,7 @@ class TripListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(AppRadius.md),
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(builder: (_) => TripDetailsScreen(tripId: trip.id)),
@@ -34,11 +35,12 @@ class TripListTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(AppRadius.md),
+          border: Border.all(color: AppColors.divider),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              color: AppColors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -106,12 +108,12 @@ class TripListTile extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(AppSpacing.xs),
+              padding: EdgeInsets.all(AppSpacing.sm),
               child: GestureDetector(
                 onTap: onFavouriteToggle,
                 child: Icon(
                   isFavourite ? Icons.favorite : Icons.favorite_border,
-                  size: 20.sp,
+                  size: 26.sp,
                   color: isFavourite
                       ? AppColors.error
                       : AppColors.textSecondary,

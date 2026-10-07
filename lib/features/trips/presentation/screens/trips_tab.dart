@@ -5,33 +5,31 @@ import '../../../../core/di/service_locator.dart';
 import '../../domain/repositories/trips_repository.dart';
 import '../widgets/trip_list_tile.dart';
 
-class TripsTab extends StatefulWidget {
+class TripsTab extends StatelessWidget {
   const TripsTab({super.key});
 
   @override
-  State<TripsTab> createState() => _TripsTabState();
-}
-
-class _TripsTabState extends State<TripsTab> {
-  final _repository = sl<TripsRepository>();
-
-  @override
   Widget build(BuildContext context) {
-    final trips = _repository.getAllTrips();
+    final repository = sl<TripsRepository>();
 
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg,
-        vertical: AppSpacing.md,
-      ),
-      itemCount: trips.length,
-      itemBuilder: (context, index) {
-        final trip = trips[index];
-        return TripListTile(
-          trip: trip,
-          isFavourite: _repository.isFavourite(trip.id),
-          onFavouriteToggle: () =>
-              setState(() => _repository.toggleFavourite(trip.id)),
+    return ListenableBuilder(
+      listenable: repository,
+      builder: (context, _) {
+        final trips = repository.getAllTrips();
+        return ListView.builder(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
+          ),
+          itemCount: trips.length,
+          itemBuilder: (context, index) {
+            final trip = trips[index];
+            return TripListTile(
+              trip: trip,
+              isFavourite: repository.isFavourite(trip.id),
+              onFavouriteToggle: () => repository.toggleFavourite(trip.id),
+            );
+          },
         );
       },
     );

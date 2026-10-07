@@ -1,4 +1,5 @@
 import 'package:alameed_app/core/services/firebase_auth_services.dart';
+import 'package:alameed_app/features/profile/presentation/screens/profile_tab.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,10 +15,6 @@ import '../../../favourites/presentation/screens/favourites_screen.dart';
 import '../../../help/presentation/screens/help_screen.dart';
 import '../../../settings/presentation/screens/settings_screen.dart';
 
-/// التلت الأول (صورة + اسم) حقيقي من Firebase. باقي البنود (ما عدا
-/// تسجيل الخروج) بتودّي لصفحات placeholder لحد ما نبنيها.
-/// onNavigateToTab بينقل لتاب "رحلاتي" في الـ Bottom Nav بدل ما يفتح
-/// صفحة منفصلة.
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key, required this.onNavigateToTab});
 
@@ -41,21 +38,26 @@ class AppDrawer extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // أيقونة placeholder دلوقتي — هتتحول تلقائي لصورة
-                    // حقيقية لو عند المستخدم photoURL (زي حسابات جوجل).
-                    CircleAvatar(
-                      radius: 36.r,
-                      backgroundColor: AppColors.white,
-                      backgroundImage: (user?.photoURL != null)
-                          ? NetworkImage(user!.photoURL!)
-                          : null,
-                      child: user?.photoURL == null
-                          ? Icon(
-                              Icons.person,
-                              size: 36.sp,
-                              color: AppColors.primary,
-                            )
-                          : null,
+                    InkWell(
+                      onTap: () {
+                         Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const ProfileTab()),
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 36.r,
+                        backgroundColor: AppColors.white,
+                        backgroundImage: (user?.photoURL != null)
+                            ? NetworkImage(user!.photoURL!)
+                            : null,
+                        child: user?.photoURL == null
+                            ? Icon(
+                                Icons.person,
+                                size: 36.sp,
+                                color: AppColors.primary,
+                              )
+                            : null,
+                      ),
                     ),
                     SizedBox(height: AppSpacing.sm),
                     Text(
@@ -74,14 +76,14 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
 
-          // ---- التلتين اللي تحت: أبيض، كل عنصر في النص ----
+          // ---- التلتين اللي تحت: موزّعين بالتساوي على المساحة كلها ----
           Expanded(
             flex: 2,
-            child: Container(
+            child: ColoredBox(
               color: AppColors.white,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(height: AppSpacing.sm),
                   _DrawerItem(
                     icon: Icons.favorite_border,
                     label: LocaleKeys.homeFavourites.tr(),
@@ -136,8 +138,6 @@ class AppDrawer extends StatelessWidget {
                       );
                     },
                   ),
-                  const Spacer(),
-                  const Divider(height: 1),
                   _DrawerItem(
                     icon: Icons.logout,
                     label: LocaleKeys.homeLogout.tr(),
@@ -154,7 +154,6 @@ class AppDrawer extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(height: AppSpacing.md),
                 ],
               ),
             ),
@@ -180,22 +179,30 @@ class _DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 20.sp, color: color ?? AppColors.textPrimary),
-            SizedBox(width: AppSpacing.sm),
-            Text(
-              label,
-              style: AppTextStyles.medium(
-                color: color ?? AppColors.textPrimary,
+    // SizedBox بعرض كامل عشان الـ InkWell ياخد عرض الدرج كله، مش بس
+    // مساحة الأيقونة والنص، مع إن المحتوى نفسه لسه في النص.
+    return SizedBox(
+      width: double.infinity,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: AppSpacing.md,
+            horizontal: AppSpacing.md,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 20.sp, color: color ?? AppColors.textPrimary),
+              SizedBox(width: AppSpacing.md),
+              Text(
+                label,
+                style: AppTextStyles.medium(
+                  color: color ?? AppColors.textPrimary,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

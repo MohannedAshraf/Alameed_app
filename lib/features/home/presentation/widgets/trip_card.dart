@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,44 +11,33 @@ import '../../../trips/domain/entities/trip_entity.dart';
 import '../../../trips/domain/repositories/trips_repository.dart';
 import '../../../trips/presentation/screens/trip_details_screen.dart';
 
-class TripCard extends StatefulWidget {
+class TripCard extends StatelessWidget {
   const TripCard({super.key, required this.trip});
 
   final TripEntity trip;
 
   @override
-  State<TripCard> createState() => _TripCardState();
-}
-
-class _TripCardState extends State<TripCard> {
-  final _repository = sl<TripsRepository>();
-
-  void _toggleFavourite() {
-    setState(() => _repository.toggleFavourite(widget.trip.id));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final isFavourite = _repository.isFavourite(widget.trip.id);
+    final repository = sl<TripsRepository>();
+    final isFavourite = repository.isFavourite(trip.id);
 
     return InkWell(
       borderRadius: BorderRadius.circular(AppRadius.md),
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => TripDetailsScreen(tripId: widget.trip.id),
-          ),
+          MaterialPageRoute(builder: (_) => TripDetailsScreen(tripId: trip.id)),
         );
       },
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(AppRadius.md),
+          border: Border.all(color: AppColors.divider),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+              color: AppColors.black.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -58,22 +49,22 @@ class _TripCardState extends State<TripCard> {
               children: [
                 AspectRatio(
                   aspectRatio: 16 / 10,
-                  child: Image.asset(widget.trip.imagePath, fit: BoxFit.cover),
+                  child: Image.asset(trip.imagePath, fit: BoxFit.cover),
                 ),
                 Positioned(
                   top: 6.h,
                   right: 6.w,
                   child: GestureDetector(
-                    onTap: _toggleFavourite,
+                    onTap: () => repository.toggleFavourite(trip.id),
                     child: Container(
-                      padding: EdgeInsets.all(4.w),
+                      padding: EdgeInsets.all(6.w),
                       decoration: const BoxDecoration(
                         color: AppColors.white,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         isFavourite ? Icons.favorite : Icons.favorite_border,
-                        size: 16.sp,
+                        size: 20.sp,
                         color: isFavourite
                             ? AppColors.error
                             : AppColors.textSecondary,
@@ -89,7 +80,7 @@ class _TripCardState extends State<TripCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.trip.title,
+                    trip.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.semiBold(fontSize: 14),
@@ -105,7 +96,7 @@ class _TripCardState extends State<TripCard> {
                       SizedBox(width: 2.w),
                       Expanded(
                         child: Text(
-                          widget.trip.location,
+                          trip.location,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.bodySmall,
@@ -115,7 +106,7 @@ class _TripCardState extends State<TripCard> {
                   ),
                   SizedBox(height: AppSpacing.xs),
                   Text(
-                    widget.trip.price,
+                    trip.price,
                     style: AppTextStyles.semiBold(
                       fontSize: 13,
                       color: AppColors.primary,
